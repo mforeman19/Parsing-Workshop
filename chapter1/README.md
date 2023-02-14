@@ -46,9 +46,11 @@ The following commands are used for examining files and are often used when pars
 - Example: Try `less example.txt`!
 - Action item: Read this [article](https://www.lifewire.com/what-to-know-less-command-4051972).
 #### head/tail
-- Syntax: `less file`, `more file`
-- Description: Reads files sequentially and writes them to standard output.
-- Example: `cat example.txt other.txt` will print both `example.txt` and `other.txt` to the console.
+- Syntax: `head file`, `tail file`
+- Description: stdout lines from a file
+  - Use the `-n` flag to input how many lines you'd like to see
+- Example: `head -n 3 file.txt` will print the starting 3 lines of file.txt.
+- Example: `tail -n 3 file.txt` will print the ending 3 lines of file.txt
 #### wc
 - Syntax: `wc file1 file2 ..`
 - Description: `wc`, short for "word count," prints a count of newlines, words, and bytes for each input file.
@@ -159,9 +161,16 @@ Explaining regular expressions in detail is beyond the scope of this workshop an
 #### Exercises:
 - Define a regular expression that:
   - Matches `aad` and `aaad` but nothing else.
+    - `egrep "\b(aad)\b|\b(aaad)\b" example.txt`
+      - where the `\b` is a word boundary, `()` captures everything enclosed case sensitive
   - Matches any email address of the shape `something@somethingcom`.
+    - `egrep "[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{3}" example.txt`
+      - `[a-zA-Z0-9]` matches characters in the range of a-z, A-Z, and 0-9 and `+` means any amount
+      - `\.` matches a single period
+      - `{3}` matches amount of characters in the preceding match
   - Matches any IPv4 address.
-
+    - `grep -E "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" example.txt`
+      - `[0-9]` matches any number and `{1,3}` matches any number of times
 
 ### Shell Scripting
 Let us get serious and learn how to write more complex and longer scripts!
@@ -205,6 +214,7 @@ fi
 - Description: `test` evaluates the expression and, if it valuates to true,
      returns a zero exit status, otherwise it returns 1.
 - [Action Item]: What is the difference between `[[ expression ]]` and `[ expression ]`?
+  - double brackets enable additional functionality by allowing use of operators like `||` and `&&` rather than their flag counterparts
 #### seq
 - Syntax: `seq number`
 - Description: Writes the sequence `1..number` to standard output (separated by newlines).
@@ -212,7 +222,7 @@ fi
 #### for/while
 Let us explain the syntax of `for` and `while` loops with three examples.
 
-The first loop bewlo loops through every element in the current working directory.
+The first loop below loops through every element in the current working directory.
 
 ```
 #!/bin/bash
@@ -304,6 +314,7 @@ print_my_argument Hello World
 ```
 #### Exercise
 - What happens when you run `print_my_argument` without any parameter?
+  - echos nothing except for a newline since its an echo
 
 
 ### Return Values (or lack thereof)
@@ -362,15 +373,35 @@ The `>` and `>>` can be used to redirect the output stream into a file.
 
 ### Exercises
 - Write a short script that, given two text files, concatenates them and writes the output to a file `merged.txt` in the working directory.
+  - `cat file_a file_b > merged.txt`
 - Given the files `lines.txt` in this directory, print out the 5th line using head and tail.
+  - `head -n 5 lines.txt | tail -n 1`
+    - fun little brain teaser
 - Using `xargs` with the option `n`, finish the command `echo a b c d e f |` so that the output is: 
 ```
     a b
     c d
     e f
  ```
+  - `echo a b c d e f | xargs -n 2`
 - Solve the following [10th Line](https://leetcode.com/problems/tenth-line/) exercise on Leetcode! Why does a simple solution based on `head` and `tail` not work?
   - Hint: One approach is to look at `mapfile` carefully.
+  ```{bash}
+  # Read from the file file.txt and output the tenth line to stdout.
+  if [[ $(wc -l < file.txt) -ge 10 ]]; then
+      sed -n "10p" file.txt
+  else
+      exit 0
+  fi
+  ```
+  ```
+  # Read from the file file.txt and output the tenth line to stdout.
+  if [[ $(wc -l < file.txt) -ge 10 ]]; then
+      head -n 10 file.txt | tail -n 1
+  else
+      exit 0
+  fi
+  ```
 - What does the following code snippet do?
 
 ```bash

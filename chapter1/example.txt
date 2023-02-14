@@ -1,1 +1,9 @@
 test file for basic commands
+192.168.1.1
+aad
+aaad
+aadksl
+example@example.co
+192.1.2.168
+aad 
+aadadaddd
