@@ -47,7 +47,7 @@ a = 'i am a string with a couple of words'
 print(a.count('str')) # 1 because it counts occurences of 'str'
 print(a.capitalize()) # I am a string with a couple of words
 print(a.endswith('words')) # True
-print(a.isalpha()) # True
+print(a.isalpha()) # True, as it contains just alphabetical chars
 print(a.isdigit()) # False, as a contains non-digit characters.
 print(a.upper()) # 'I AM A STRING WITH A COUPLE OF WORDS'
 print(a.split(' ')) # ['i', 'am', 'a', 'string', 'with', 'a', 'couple', 'of', 'words']
@@ -65,7 +65,7 @@ print(a['key']) # value
 Here are a couple of methods to review:
 ```Python
 d = {'A': 'Z', 'B': 'Y'}
-print(d.items()) # [('A', 'Z'), ('B', 'Y')]
+print(d.items()) # [('A', 'Z'), ('B', 'Y')] --> Interesting that this come out as a list
 print(d.keys()) # ['A', 'B']
 print(d.values()) # ['Z', 'Y']
 print(sorted(d.items(), key=lambda i:i[1])) # [('B', 'Y'), ('A', 'Z')]
@@ -79,7 +79,7 @@ However, the documentation of the `re` module is crucial to at least read once.
 - [Action Item] Read [Doc of re module](https://docs.python.org/3/howto/regex.html)
 
 
-#### Exercises
+#### Exercises --> re_exercises.py
 -  Write a Python program to check that a string contains alphabetical characters using `re` and not the built in `isalpha()` method.
 - Write a Python program that matches a string that has a `g` followed by zero or more `r`s.
 - Write a Python program that matches a string that has an `ac` followed by one or more `b`s and then at least one `q` after the last `b`.
@@ -120,7 +120,7 @@ Here is a short list of additional modules that are useful for parsing and worki
 ## Additional Resources
 - [Introduction to Python](https://www.geeksforgeeks.org/python-language-introduction/)
 - [Log File Parsing in Python](https://pythonicways.wordpress.com/2016/12/20/log-file-parsing-in-python/)
-## Exercises
+## Exercises --> example_txt-exercises.py
 All exercises are based on `example.txt` in this file.
 - Write a Python script that counts the number of alphabetical words in `example.txt`.
 - Write a Python script that returns the sum of all integers contained in `example.txt`.
