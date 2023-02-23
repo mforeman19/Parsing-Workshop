@@ -180,6 +180,7 @@ sed -n 25d FILE
 
 ### Exercises
 - What does `sed -n "/test/p" example.txt` do?
+  - p stands for print, it'll print lines with "test" in them
 
 ## Additional Resources
 
